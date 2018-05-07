@@ -2,7 +2,7 @@
 
 [![Docker Automated buil](https://img.shields.io/docker/automated/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/builds/) [![Docker Stars](https://img.shields.io/docker/stars/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/) [![](https://img.shields.io/docker/pulls/haysclark/adlmflexnetserver.svg)](https://hub.docker.com/r/haysclark/adlmflexnetserver 'DockerHub') [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
- > Unofficial Autodesk License Manager FLEXlm® Network Server container.
+ > Unofficial Comsol Multiphysics License Manager FLEXlm® Network Server container.
 
 Usage
 -----
@@ -35,8 +35,7 @@ Docker's built-in logging functionality will collect the stdout/stderr generated
 
 Thus it's recommended you do NOT use the '-l' flag to log to a file, doing so will cause your Docker logs to be empty.  Additionally, avoid using the '-t' flag when using the 'run' command, enabling TTL support will cause extra line breaks in your Docker logs.
 
-Troubleshooting
----------------
+## Troubleshooting
 
 If you are unsure if the server is running correctly, you can log into the container.
 
@@ -46,10 +45,10 @@ Once in bash run:
 
     lmutil lmstat -a -c [LICENSE_PATH]
 
-Resources
----------
-[Official Docs](https://knowledge.autodesk.com/support/maya/downloads/caas/downloads/content/autodesk-network-license-manager-for-linux.html?v=2014)
+## Resources
 
-Supports
---------
-Applies to Autodesk Nastran 2015, Autodesk Nastran 2016, Autodesk Nastran 2017, Infrastructure Map Server 2014, Infrastructure Map Server 2015, Infrastructure Map Server 2016, Infrastructure Map Server 2017, Maya 2014, Maya 2015, Maya 2016, Maya 2017, Moldflow Insight 2015, Moldflow Insight 2016, Moldflow Insight 2017, MotionBuilder 2014, MotionBuilder 2015, MotionBuilder 2016, MotionBuilder 2017, Mudbox 2014, Mudbox 2015, Mudbox 2016, Mudbox 2017, Softimage 2014, Softimage 2015, Softimage 2016, VRED Design 2014, and VRED Products 2017
+[Official Docs](https://www.comsol.de/support/knowledgebase/1077/)
+
+## Supports
+
+Applies to COMSOL Multiphysics
