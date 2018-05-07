@@ -51,4 +51,4 @@ Once in bash run:
 
 ## Supports
 
-Applies to COMSOL Multiphysics
+Applies to COMSOL Multiphysics 5.3a
