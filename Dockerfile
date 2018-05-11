@@ -1,38 +1,31 @@
-FROM centos:centos6
-MAINTAINER hays.clark@gmail.com
-
-#########################################
-##             CONSTANTS               ##
-#########################################
-# path for Network Licence Manager
-ARG NLM_URL=http://download.autodesk.com/us/support/files/network_license_manager/11_13_1_2_v2/Linux/nlm11.13.1.2_ipv4_ipv6_linux64.tar.gz
-# path for temporary files
-ARG TEMP_PATH=/tmp/flexnetserver
+FROM debian:stable-slim
+LABEL maintainer="Kasper D. Fischer <kasper.fischer@rub.de>"
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 # add the flexlm commands to $PATH
-ENV PATH="${PATH}:/opt/flexnetserver/"
+ENV PATH="${PATH}:/opt/comsol_flexlm/glnxa64/"
 
 #########################################
 ##         RUN INSTALL SCRIPT          ##
 #########################################
 ADD /files /usr/local/bin
 
-RUN yum update -y && yum install -y \
-    redhat-lsb-core \
-    wget && \
-    yum clean all
-
-RUN mkdir -p ${TEMP_PATH} && cd ${TEMP_PATH} && \
-    wget --progress=bar:force ${NLM_URL} && \
-    tar -zxvf *.tar.gz && rpm -vhi *.rpm && \
-    rm -rf ${TEMP_PATH}
+RUN apt-get update \
+    && apt-get install -y \
+        lsb-core \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # lmadmin is required for -2 -p flag support
-RUN groupadd -r lmadmin && \
-    useradd -r -g lmadmin lmadmin
+RUN addgroup --system lmadmin && \
+    adduser --system  --no-create-home --ingroup lmadmin --disabled-password --disabled-login lmadmin
+
+ADD --chown=lmadmin:lmadmin distrib/glnxa64_53.tar.bz2 /opt/comsol_flexlm/
+RUN chown -R lmadmin:lmadmin /opt/comsol_flexlm
+RUN chmod 755 -R /opt/comsol_flexlm/glnxa64
+RUN mkdir /tmp/.flexlm && chown lmadmin:lmadmin /tmp/.flexlm && ln -s /tmp /usr/tmp
 
 #########################################
 ##              VOLUMES                ##
@@ -42,8 +35,7 @@ VOLUME ["/var/flexlm"]
 #########################################
 ##            EXPOSE PORTS             ##
 #########################################
-EXPOSE 2080
-EXPOSE 27000-27009
+EXPOSE 1718-1719
 
 # do not use ROOT user
 USER lmadmin
