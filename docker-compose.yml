@@ -1,0 +1,20 @@
+version: "3.3"
+
+services:
+  comsollm:
+    image: docker-comsolflexlmserver
+    hostname: ldap.example.com
+    ports:
+      - 7018
+      - 7019
+    secrets:
+      - comsol_license_5.3a
+    deploy:
+      mode: replicated
+      replicas: 1
+    labels:
+      - "traefik.frontend.rule=Host:ldap.example.com"
+
+secrets:
+  comsol_license_5.3a:
+    external: true

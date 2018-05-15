@@ -38,6 +38,11 @@ lmutil lmhostid
 PRINT_LINEBREAK
 echo ""
 
+# link docker secret comsol_license_5.3a to license.dat
+if [ -f /run/secrets/comsol_license_5.3a ] ; then
+    ln -nsf /run/secrets/comsol_license_5.3a /usr/local/flexlm/licenses/license.dat
+fi
+
 # forward all command line arguments to lmgrd
 # NOTE: lmgrd -z flag is required to 'Run in foreground.' so that
 #       Docker will not start sleeping regardless flags.
